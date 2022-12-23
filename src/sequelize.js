@@ -7,7 +7,13 @@ module.exports = function (app) {
     logging: false,
     define: {
       freezeTableName: true
-    }
+    },
+    dialectOptions: {
+      useUTC: false, // for reading from database
+      timezone: '+05:30',
+    },
+    timezone: '+05:30'
+    
   });
   const oldSetup = app.setup;
 

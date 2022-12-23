@@ -2,28 +2,24 @@
 // for more of what you can do here.
 const Sequelize = require('sequelize');
 const DataTypes = Sequelize.DataTypes;
-const games = require('./games.model')
 
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
-  const users = sequelizeClient.define('user', {
-  
-    id:{
+  const products = sequelizeClient.define('products', {
+    id: {
       type: DataTypes.UUID,
       allowNull: false,
       defaultValue: DataTypes.UUIDV4,
-      unique:true,
-      primaryKey:true
+      primaryKey: true
     },
-    email: {
+    name:{
       type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
+      allowNull:false
     },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
+    type:{
+      type:DataTypes.STRING,
+      allowNull:false
+    }
   }, {
     hooks: {
       beforeCount(options) {
@@ -33,13 +29,12 @@ module.exports = function (app) {
   });
 
   // eslint-disable-next-line no-unused-vars
-  users.associate = function (models) {
+  products.associate = function (models) {
     // Define associations here
     // See https://sequelize.org/master/manual/assocs.html
-    users.hasMany(models.games,{
-      foreignKey:'userId'
-    })
+    products.belongsToMany(models.customer,{through:'customer_products',foreignKey:'product_id',as:'customersList'})
+
   };
 
-  return users;
+  return products;
 };
