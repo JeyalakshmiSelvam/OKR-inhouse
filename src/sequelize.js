@@ -5,11 +5,11 @@ module.exports = function (app) {
   const sequelize = new Sequelize(connectionString, {
     dialect: 'postgres',
     logging: false,
-    define: {
-      freezeTableName: true
-    }
+    // define: {
+    //   freezeTableName: true
+    // }
   });
-  const oldSetup = app.setup;
+const oldSetup = app.setup;
 
   app.set('sequelizeClient', sequelize);
 

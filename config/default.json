@@ -28,5 +28,5 @@
       "passwordField": "password"
     }
   },
-  "postgres": "postgres://postgres:welcome123@localhost:5432/okr_inhouse"
+  "postgres": "postgres://postgres:welcome123@localhost:5432/OKR_Inhouse"
 }
