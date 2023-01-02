@@ -20,6 +20,10 @@ module.exports = function (app) {
       type: DataTypes.STRING,
       allowNull:false
     },
+    domainName:{
+      type: DataTypes.STRING(50),
+      allowNull:false
+    },
     created_by:{
       type: DataTypes.INTEGER,
       allowNull:false
@@ -41,6 +45,8 @@ module.exports = function (app) {
       }
     }
   });
+
+  sequelizeClient.models['Organization'].sync({alter:true})
 
   // eslint-disable-next-line no-unused-vars
   organization.associate = function (models) {

@@ -10,7 +10,7 @@ module.exports = function (app) {
       type:DataTypes.INTEGER,
       primaryKey:true,
       allowNull:false,
-      autoIncrement:true
+      autoIncrement: true
     },
     first_name:{
       type:DataTypes.STRING(50),
@@ -73,7 +73,7 @@ module.exports = function (app) {
     users.belongsTo(models.Organization,{foreignKey:'organization_id',as:"Org_members"})
     users.belongsToMany(models.Team,{through:"Team_users",foreignKey:'team_id',as:"UserTeams"})
     users.belongsToMany(models.Kr,{through:"User_krs",foreignKey:'kr_id',as:"KR_Users"})
-    users.hasMany(models.Comment,{as:'Comments'})
+    users.hasMany(models.Comment,{as:'Comments', foreignKey:"commentor"})
   };
 
   return users;
