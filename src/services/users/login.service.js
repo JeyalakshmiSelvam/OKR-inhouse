@@ -1,6 +1,6 @@
 const { Login } = require('./login.class');
 const createModel = require('../../models/users.model');
-const {userValidation,tokenValidations} = require('./../../validations');
+const {userValidation} = require('./../../validations');
 
 module.exports = function (app) {
   const options = {
@@ -16,7 +16,7 @@ module.exports = function (app) {
 
   service.hooks({
     before:{
-      all:[tokenValidations,userValidation,
+      all:[userValidation,
       function(context){
         const sequelize = context.app.get('sequelizeClient');
         let role_id =context.params.user.role_id;

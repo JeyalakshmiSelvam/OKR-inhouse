@@ -1,36 +1,33 @@
 // import {OAuth2Client} from 'google-auth-library';
 const {OAuth2Client} = require('google-auth-library');
-const { NotFound, GeneralError, BadRequest } =require('@feathersjs/errors'); 
-const e = require('cors');
+const errors =require('@feathersjs/errors'); 
 
 
 
 const tokenValidations = async function(context) {
     try{
-    let headers = context.params.headers; 
-    if(headers.authorization){
-        let CLIENT_ID = context.app.get('google_client_id');
-        const client = new OAuth2Client(CLIENT_ID);
-        const tokenInfo = await client.verifyIdToken({
-            idToken: headers.authorization, // id_token field
-            audience: CLIENT_ID, // Google APP id
-        });
-        const payload = tokenInfo.getPayload();
-        if(payload?.email){
-            let currentTime = Math.floor(Date.now()/1000)
-            if(currentTime>=payload.exp){
-                throw new Error("Token was expired");
-            } else context.params.user = payload;
+        let headers = context.params.headers; 
+        if(headers.authorization){
+            let CLIENT_ID = context.app.get('google_client_id');
+            const client = new OAuth2Client(CLIENT_ID);
+            const tokenInfo = await client.verifyIdToken({
+                idToken: headers.authorization, // id_token field
+                audience: CLIENT_ID, // Google APP id
+            });
+            const payload = tokenInfo.getPayload();
+            if(payload?.email){
+                let currentTime = Math.floor(Date.now()/1000)
+                if(currentTime>=payload.exp){
+                    throw new errors.BadRequest("Token was expired");
+                } else context.params.user = payload;
+            }else{
+                throw new errors.BadRequest("Token doesn't have mail id");
+            }
         }else{
-            throw new Error("Token doesn't have mail id");
+            throw new errors.NotAuthenticated("Token was missing")
         }
-    }else{
-        throw new BadRequest("Token was missing")
-    }
-  
-
     }catch(error){
-        throw new Error(error)
+        throw new errors.BadRequest(error)
     }
 }
 
@@ -46,18 +43,16 @@ const userValidation = async function(context){
                     let org_info =  await context.app.service('organization').get(userInfo.data[0].organization_id)
                     if(domain[1] == org_info.domainName){
                         if(!userInfo.data[0].is_invited){
-                            throw new Error("LoggedIn user not have been invited")
+                            throw new errors.BadRequest("LoggedIn user not have been invited")
                         }
                     }else{
-                        throw new Error("LoggedIn user not belongs to this Organization")
+                        throw new errors.BadRequest("LoggedIn user not belongs to this Organization")
                     }
-                } else{
-                    console.log("else")
-                }
+            } 
         }
         
     } catch(error){
-        console.log("erre",error)
+        throw new errors.BadRequest(error)
     }
 }
 
