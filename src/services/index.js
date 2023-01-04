@@ -14,6 +14,7 @@ const kr = require('./kr/kr.service.js');
 const userKr = require('./user-kr/user-kr.service.js');
 const milestones = require('./milestones/milestones.service.js');
 const comments = require('./comments/comments.service.js');
+const login = require('./users/login.service')
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
   app.configure(users);
@@ -32,4 +33,5 @@ module.exports = function (app) {
   app.configure(userKr);
   app.configure(milestones);
   app.configure(comments);
+  app.configure(login);
 };

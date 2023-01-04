@@ -69,7 +69,7 @@ module.exports = function (app) {
   users.associate = function (models) {
     // Define associations here
     // See https://sequelize.org/master/manual/assocs.html
-    users.belongsTo(models.Role,{foreignKey:'role_id',as:"Users"})
+    users.belongsTo(models.Role,{foreignKey:'role_id',as:"Roles"})
     users.belongsTo(models.Organization,{foreignKey:'organization_id',as:"Org_members"})
     users.belongsToMany(models.Team,{through:"Team_users",foreignKey:'team_id',as:"UserTeams"})
     users.belongsToMany(models.Kr,{through:"User_krs",foreignKey:'kr_id',as:"KR_Users"})

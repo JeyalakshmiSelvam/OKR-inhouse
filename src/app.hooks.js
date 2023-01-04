@@ -1,8 +1,16 @@
 // Application hooks that run for every service
+const {tokenValidations} = require('./validations');
+const errorHandler = require('./error-handler');
+const { iff ,when} = require('feathers-hooks-common');
 
 module.exports = {
   before: {
-    all: [],
+    all: [
+      // function(context){
+      //   iff((context.params.provider === "rest"),tokenValidations)
+      
+      // }
+    ],
     find: [],
     get: [],
     create: [],
@@ -22,7 +30,7 @@ module.exports = {
   },
 
   error: {
-    all: [],
+    all: [errorHandler],
     find: [],
     get: [],
     create: [],
