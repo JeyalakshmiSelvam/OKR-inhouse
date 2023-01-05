@@ -5,9 +5,11 @@ module.exports = function (app) {
   const sequelize = new Sequelize(connectionString, {
     dialect: 'postgres',
     logging: false,
-    // define: {
-    //   freezeTableName: true
-    // }
+    dialectOptions:{
+      useUTC:false
+    },
+    timezone:'Asia/Calcutta',
+    keepDefaultTimezone:false
   });
 const oldSetup = app.setup;
 
