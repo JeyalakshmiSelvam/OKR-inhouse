@@ -38,6 +38,7 @@ module.exports = function (app) {
     }
   });
 
+  sequelizeClient.models['Team_user'].sync({alter:true});
   // eslint-disable-next-line no-unused-vars
   teamUser.associate = function (models) {
     // Define associations here

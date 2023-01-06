@@ -35,7 +35,7 @@ module.exports = function (app) {
     },
     parent_team_id:{
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references:{
         model:'Teams',
         key:'id'
@@ -59,7 +59,7 @@ module.exports = function (app) {
     // See https://sequelize.org/master/manual/assocs.html
     teams.belongsTo(models.Organization,{foreignKey:'organization_id'});
     teams.hasOne(models.Team,{foreignKey:'parent_team_id',as:'parent'});
-    teams.belongsToMany(models.User,{through:'Team_users',foreignKey:'user_id',as:'TeamUsers'});
+    teams.belongsToMany(models.User,{through:'Team_users',foreignKey:'team_id',as:'TeamUsers'});
     teams.hasMany(models.Team_progress,{as:'Team_progress'});
     teams.hasMany(models.Team_okr,{as:'Team_okrs'});
   };

@@ -55,7 +55,7 @@ module.exports = function (app) {
     organization.hasMany(models.User,{as:'members'});
     organization.hasMany(models.Organization_okr,{as:'org_okrs'});
     organization.hasMany(models.Quarter_cycle,{as:'Org_progress'});
-    organization.hasMany(models.Team,{as:'Teams'});
+    organization.hasMany(models.Team,{as:'Teams', foreignKey:'organization_id'});
   };
 
   return organization;

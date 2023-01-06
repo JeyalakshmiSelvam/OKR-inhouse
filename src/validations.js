@@ -15,17 +15,18 @@ const logger = require('./logger');
    */
 const tokenValidations = async function(context) {
   try{
-    const headers = context.params.headers; 
+    console.log('Enter into token validations');
+    let headers = context.params.headers; 
     if(headers.authorization){
-      const CLIENT_ID = context.app.get('google_client_id');
+      let CLIENT_ID = context.app.get('google_client_id');
       const client = new OAuth2Client(CLIENT_ID);
       const tokenInfo = await client.verifyIdToken({
         idToken: headers.authorization, // id_token field
         audience: CLIENT_ID, // Google APP id
       });
       const payload = tokenInfo.getPayload();
-      if(payload && payload.email){
-        const currentTime = Math.floor(Date.now()/1000);
+      if(payload?.email){
+        let currentTime = Math.floor(Date.now()/1000);
         if(currentTime>=payload.exp){
           throw new errors.BadRequest('Token was expired');
         } else context.params.user = payload;
@@ -40,6 +41,7 @@ const tokenValidations = async function(context) {
     throw new errors.BadRequest(error);
   }
 };
+
 
 
 /**
@@ -77,7 +79,45 @@ const userValidation = async function(context){
   }
 };
 
+
+/**
+   * @name checkUserAuthorization
+   * @description
+   *  - Used to Validate the User Authorization
+   * @memberof module:function of validation file ,used as hooks
+   * @param {object} params - context
+   * @return {object} formMeta - returns error or moves to next middleware.
+   * @author Jeyalakshmi
+   */
+const checkUserAuthorization = async function(context){
+  try {
+    console.log('Enter into checkUserAuthorization');
+
+    let data = {email:context.params.user.email};
+    let userInfo = await context.app.service('users').find({query : data});
+    console.log('userInfo,',userInfo);
+    console.log('context.path',context.path);
+    context.params.user = userInfo.data[0];
+    if(context.path == 'teams'){
+      console.log('userInfo.data[0].role_id ',userInfo.data[0].role_id );
+      console.log('constants[\'ADMIN\']',constants['ADMIN']);
+      if(!(userInfo.data[0].role_id === constants['ADMIN'])){
+        throw new errors.Forbidden('Dont have an access to create the team');
+      }
+    }
+    if(context.path == 'organization'){
+      if(!(userInfo.data[0].role_id === constants['SUPER_ADMIN'])){
+        throw new errors.Forbidden('You Dont have an access to create Organization');
+      }
+    }
+  }catch(error){
+    throw new errors.BadRequest(error);
+  }
+};
+
+// module.exports = checkUserAuthorization;
 module.exports = {
   tokenValidations,
-  userValidation
+  userValidation,
+  checkUserAuthorization
 };

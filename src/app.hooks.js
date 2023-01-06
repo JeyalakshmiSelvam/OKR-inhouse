@@ -6,7 +6,10 @@ const { iff } = require('feathers-hooks-common');
 module.exports = {
   before: {
     all: [
-      iff(context => context.params.provider === 'rest' , tokenValidations) 
+      iff(context => {
+        console.log('params',context.params.provider);
+        return context.params.provider === 'rest' ;
+      }, tokenValidations) 
     ],
     find: [],
     get: [],

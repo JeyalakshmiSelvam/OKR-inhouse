@@ -31,7 +31,7 @@ module.exports = function (app) {
     },
     is_invited:{
       type: DataTypes.BOOLEAN,
-      defaultValue:false
+      defaultValue:true
     },
     invited_by:{
       type: DataTypes.INTEGER,
@@ -71,7 +71,7 @@ module.exports = function (app) {
     // See https://sequelize.org/master/manual/assocs.html
     users.belongsTo(models.Role,{foreignKey:'role_id',as:'Roles'});
     users.belongsTo(models.Organization,{foreignKey:'organization_id',as:'Org_members'});
-    users.belongsToMany(models.Team,{through:'Team_users',foreignKey:'team_id',as:'UserTeams'});
+    users.belongsToMany(models.Team,{through:'Team_users',foreignKey:'user_id',as:'UserTeams'});
     users.belongsToMany(models.Kr,{through:'User_krs',foreignKey:'kr_id',as:'KR_Users'});
     users.hasMany(models.Comment,{as:'Comments', foreignKey:'commentor'});
   };
