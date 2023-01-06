@@ -46,16 +46,16 @@ module.exports = function (app) {
     }
   });
 
-  sequelizeClient.models['Organization'].sync({alter:true})
+  sequelizeClient.models['Organization'].sync({alter:true});
 
   // eslint-disable-next-line no-unused-vars
   organization.associate = function (models) {
     // Define associations here
     // See https://sequelize.org/master/manual/assocs.html
-    organization.hasMany(models.User,{as:'members'})
-    organization.hasMany(models.Organization_okr,{as:'org_okrs'})
-    organization.hasMany(models.Quarter_cycle,{as:"Org_progress"})
-    organization.hasMany(models.Team,{as:"Teams"})
+    organization.hasMany(models.User,{as:'members'});
+    organization.hasMany(models.Organization_okr,{as:'org_okrs'});
+    organization.hasMany(models.Quarter_cycle,{as:'Org_progress'});
+    organization.hasMany(models.Team,{as:'Teams'});
   };
 
   return organization;

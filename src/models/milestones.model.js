@@ -6,16 +6,6 @@ const DataTypes = Sequelize.DataTypes;
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
   const milestones = sequelizeClient.define('Milestone', {
-    
-  // description varchar
-  // start_date date
-  // end_date date
-  // percentage_completed int
-  // weightage int
-  // is_deleted boolean
-  // kr_id int [ref: > kr.id]
-  // created_by int
-  // updated_by int
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -74,7 +64,7 @@ module.exports = function (app) {
   milestones.associate = function (models) {
     // Define associations here
     // See https://sequelize.org/master/manual/assocs.html
-    milestones.belongsTo(models.Kr,{foreignKey:'kr_id'})
+    milestones.belongsTo(models.Kr,{foreignKey:'kr_id'});
   };
 
   return milestones;

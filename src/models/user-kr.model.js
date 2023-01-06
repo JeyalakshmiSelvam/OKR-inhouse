@@ -17,7 +17,7 @@ module.exports = function (app) {
       allowNull: false,
       references:{
         model:'Users',
-        key:"id"
+        key:'id'
       }
     },
     kr_id:{
@@ -25,7 +25,7 @@ module.exports = function (app) {
       allowNull: false,
       references:{
         model:'Krs',
-        key:"id"
+        key:'id'
       }
     }
   }, {
@@ -42,8 +42,8 @@ module.exports = function (app) {
   userKr.associate = function (models) {
     // Define associations here
     // See https://sequelize.org/master/manual/assocs.html
-    userKr.belongsTo(models.User,{foreignKey:'user_id'})
-    userKr.belongsTo(models.Kr,{foreignKey:'kr_id'})
+    userKr.belongsTo(models.User,{foreignKey:'user_id'});
+    userKr.belongsTo(models.Kr,{foreignKey:'kr_id'});
   };
 
   return userKr;

@@ -43,8 +43,8 @@ module.exports = function (app) {
   rolePermissions.associate = function (models) {
     // Define associations here
     // See https://sequelize.org/master/manual/assocs.html
-    rolePermissions.belongsTo(models.Role,{foreignKey:'role_id'})
-    rolePermissions.belongsTo(models.Permission,{foreignKey:'permission_id'})
+    rolePermissions.belongsTo(models.Role,{foreignKey:'role_id'});
+    rolePermissions.belongsTo(models.Permission,{foreignKey:'permission_id'});
   };
 
   return rolePermissions;

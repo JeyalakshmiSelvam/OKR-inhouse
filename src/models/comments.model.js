@@ -33,8 +33,8 @@ module.exports = function (app) {
       allowNull:false
     }
   }, {
-    createdAt:"created_time",
-    updatedAt:"updated_time",
+    createdAt:'created_time',
+    updatedAt:'updated_time',
     hooks: {
       beforeCount(options) {
         options.raw = true;
@@ -46,7 +46,7 @@ module.exports = function (app) {
   comments.associate = function (models) {
     // Define associations here
     // See https://sequelize.org/master/manual/assocs.html
-    comments.belongsTo(models.User,{foreignKey:'commentor'})
+    comments.belongsTo(models.User,{foreignKey:'commentor'});
   };
 
   return comments;

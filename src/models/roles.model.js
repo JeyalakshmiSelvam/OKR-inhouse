@@ -17,8 +17,8 @@ module.exports = function (app) {
     }
   }, 
   {
-    createdAt: "created_time",
-    updatedAt: "updated_time", 
+    createdAt: 'created_time',
+    updatedAt: 'updated_time', 
     hooks: {
       beforeCount(options) {
         options.raw = true;
@@ -32,8 +32,8 @@ module.exports = function (app) {
   roles.associate = function (models) {
     // Define associations here
     // See https://sequelize.org/master/manual/assocs.html
-    roles.belongsToMany(models.Permission,{through:'Role_permissions',foreignKey:'role_id', as:'Permissions'})
-    roles.hasMany(models.User)
+    roles.belongsToMany(models.Permission,{through:'Role_permissions',foreignKey:'role_id', as:'Permissions'});
+    roles.hasMany(models.User);
   };
 
   return roles;

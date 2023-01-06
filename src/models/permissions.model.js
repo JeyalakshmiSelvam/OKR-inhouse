@@ -35,7 +35,7 @@ module.exports = function (app) {
   permissions.associate = function (models) {
     // Define associations here
     // See https://sequelize.org/master/manual/assocs.html
-    permissions.belongsToMany(models.Role,{through:'Role_permissions',foreignKey:'permission_id', as:'Roles'})
+    permissions.belongsToMany(models.Role,{through:'Role_permissions',foreignKey:'permission_id', as:'Roles'});
 
   };
 

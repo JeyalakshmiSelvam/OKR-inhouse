@@ -11,7 +11,7 @@ module.exports = function (app) {
     timezone:'Asia/Calcutta',
     keepDefaultTimezone:false
   });
-const oldSetup = app.setup;
+  const oldSetup = app.setup;
 
   app.set('sequelizeClient', sequelize);
 

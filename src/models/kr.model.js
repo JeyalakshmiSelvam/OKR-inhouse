@@ -70,8 +70,8 @@ module.exports = function (app) {
       }
     }
   }, {
-    createdAt:"created_time",
-    updatedAt:"updated_time",
+    createdAt:'created_time',
+    updatedAt:'updated_time',
     hooks: {
       beforeCount(options) {
         options.raw = true;
@@ -83,9 +83,9 @@ module.exports = function (app) {
   kr.associate = function (models) {
     // Define associations here
     // See https://sequelize.org/master/manual/assocs.html
-    kr.belongsTo(models.Team_okr,{foreignKey:'team_okr_id'})
-    kr.belongsToMany(models.User,{through:"User_krs",foreignKey:'user_id',as:"UserKrs"})
-    kr.hasMany(models.Milestone,{as:'Milestones'})
+    kr.belongsTo(models.Team_okr,{foreignKey:'team_okr_id'});
+    kr.belongsToMany(models.User,{through:'User_krs',foreignKey:'user_id',as:'UserKrs'});
+    kr.hasMany(models.Milestone,{as:'Milestones'});
   };
 
   return kr;

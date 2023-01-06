@@ -29,23 +29,23 @@ module.exports = function (app) {
       type: DataTypes.INTEGER,
       allowNull: false,
       references:{
-        model:"Organizations",
-        key:"id"
+        model:'Organizations',
+        key:'id'
       }
     },
     parent_team_id:{
       type: DataTypes.INTEGER,
       allowNull: false,
       references:{
-        model:"Teams",
-        key:"id"
+        model:'Teams',
+        key:'id'
       }
     }
 
 
   }, {
-    createdAt:"created_time",
-    updatedAt:"updated_time",
+    createdAt:'created_time',
+    updatedAt:'updated_time',
     hooks: {
       beforeCount(options) {
         options.raw = true;
@@ -57,11 +57,11 @@ module.exports = function (app) {
   teams.associate = function (models) {
     // Define associations here
     // See https://sequelize.org/master/manual/assocs.html
-    teams.belongsTo(models.Organization,{foreignKey:"organization_id"})
-    teams.hasOne(models.Team,{foreignKey:"parent_team_id",as:"parent"})
-    teams.belongsToMany(models.User,{through:'Team_users',foreignKey:"user_id",as:"TeamUsers"})
-    teams.hasMany(models.Team_progress,{as:"Team_progress"})
-    teams.hasMany(models.Team_okr,{as:"Team_okrs"})
+    teams.belongsTo(models.Organization,{foreignKey:'organization_id'});
+    teams.hasOne(models.Team,{foreignKey:'parent_team_id',as:'parent'});
+    teams.belongsToMany(models.User,{through:'Team_users',foreignKey:'user_id',as:'TeamUsers'});
+    teams.hasMany(models.Team_progress,{as:'Team_progress'});
+    teams.hasMany(models.Team_okr,{as:'Team_okrs'});
   };
 
   return teams;

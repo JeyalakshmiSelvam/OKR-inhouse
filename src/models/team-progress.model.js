@@ -21,7 +21,7 @@ module.exports = function (app) {
       type: DataTypes.INTEGER,
       allowNull:false,
       references:{
-        model:"Teams",
+        model:'Teams',
         key:'id'
       }
     },
@@ -29,13 +29,13 @@ module.exports = function (app) {
       type: DataTypes.INTEGER,
       allowNull:false,
       references:{
-        model:"Quarter_cycles",
+        model:'Quarter_cycles',
         key:'id'
       }
     }
   }, {
-    createdAt:"created_time",
-    updatedAt:"updated_time",
+    createdAt:'created_time',
+    updatedAt:'updated_time',
     hooks: {
       beforeCount(options) {
         options.raw = true;
@@ -47,8 +47,8 @@ module.exports = function (app) {
   teamProgress.associate = function (models) {
     // Define associations here
     // See https://sequelize.org/master/manual/assocs.html
-    teamProgress.belongsTo(models.Team,{foreignKey:'team_id'})
-    teamProgress.belongsTo(models.Quarter_cycle,{foreignKey:'quarter_cycle_id'})
+    teamProgress.belongsTo(models.Team,{foreignKey:'team_id'});
+    teamProgress.belongsTo(models.Quarter_cycle,{foreignKey:'quarter_cycle_id'});
   };
 
   return teamProgress;

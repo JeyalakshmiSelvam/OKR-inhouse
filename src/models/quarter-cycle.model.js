@@ -23,8 +23,8 @@ module.exports = function (app) {
       unique:true
     }
   }, {
-    createdAt:"created_time",
-    updatedAt:"updated_time",
+    createdAt:'created_time',
+    updatedAt:'updated_time',
     hooks: {
       beforeCount(options) {
         options.raw = true;
@@ -36,9 +36,9 @@ module.exports = function (app) {
   quarterCycle.associate = function (models) {
     // Define associations here
     // See https://sequelize.org/master/manual/assocs.html
-    quarterCycle.hasMany(models.Organization_okr,{as:'Org_okrs'})
-    quarterCycle.hasMany(models.Organization_progress,{as:'Org_progress'})
-    quarterCycle.hasMany(models.Team_okr,{as:'Team_okrs'})
+    quarterCycle.hasMany(models.Organization_okr,{as:'Org_okrs'});
+    quarterCycle.hasMany(models.Organization_progress,{as:'Org_progress'});
+    quarterCycle.hasMany(models.Team_okr,{as:'Team_okrs'});
   };
 
   return quarterCycle;
